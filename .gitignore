@@ -1,0 +1,38 @@
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.m2/
+
+# Runtime
+.xkclient/
+*.log
+
+# Build
+out/
+build/
+dist/
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+
+# OS
+Thumbs.db
+.DS_Store
