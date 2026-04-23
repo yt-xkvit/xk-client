@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.xkclient.ui.controller.InstancesController"
+            stylesheets="@styles.css">
+
+    <left>
+        <VBox spacing="10" style="-fx-padding: 15; -fx-min-width: 250;">
+            <Label text="Game Instances" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+            <ListView fx:id="instanceList" onMouseClicked="#onInstanceSelected" prefHeight="400"/>
+            <HBox spacing="5">
+                <Button text="Refresh" onAction="#refreshInstanceList" style="-fx-padding: 8;" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="15" style="-fx-padding: 15;">
+            <!-- Instance Info -->
+            <Label fx:id="selectedInstanceLabel" text="No instance selected" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <Separator/>
+
+            <!-- Create Instance Section -->
+            <VBox spacing="8" style="-fx-border-color: #444; -fx-border-radius: 5; -fx-padding: 10;">
+                <Label text="Create New Instance" style="-fx-font-size: 12; -fx-font-weight: bold;"/>
+                <HBox spacing="5">
+                    <Label text="Name:" prefWidth="80"/>
+                    <TextField fx:id="instanceNameField" promptText="Instance name" HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <HBox spacing="5">
+                    <Label text="Version:" prefWidth="80"/>
+                    <ComboBox fx:id="versionCombo" HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <Button text="Create Instance" onAction="#createInstance" style="-fx-padding: 8; -fx-font-size: 11;"/>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Edit Instance Section -->
+            <VBox spacing="8" style="-fx-border-color: #444; -fx-border-radius: 5; -fx-padding: 10;">
+                <Label text="Instance Settings" style="-fx-font-size: 12; -fx-font-weight: bold;"/>
+                <HBox spacing="10">
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Max Memory (GB):" prefWidth="120"/>
+                        <Spinner fx:id="maxMemorySpinner" prefWidth="150"/>
+                    </VBox>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <Label text="Min Memory (GB):" prefWidth="120"/>
+                        <Spinner fx:id="minMemorySpinner" prefWidth="150"/>
+                    </VBox>
+                </HBox>
+                <VBox spacing="5">
+                    <Label text="JVM Arguments:" prefWidth="120"/>
+                    <TextArea fx:id="jvmArgsArea" wrapText="true" prefHeight="80" style="-fx-control-inner-background: #1e1e1e; -fx-text-fill: #00ff00;"/>
+                </VBox>
+                <HBox spacing="5">
+                    <Button text="Edit" onAction="#editInstance" style="-fx-padding: 8;"/>
+                    <Button text="Delete" onAction="#deleteInstance" style="-fx-padding: 8;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

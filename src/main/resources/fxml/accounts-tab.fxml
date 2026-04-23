@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.xkclient.ui.controller.AccountsController"
+            stylesheets="@styles.css">
+
+    <left>
+        <VBox spacing="10" style="-fx-padding: 15; -fx-min-width: 250;">
+            <Label text="Saved Accounts" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+            <ListView fx:id="accountList" onMouseClicked="#onAccountSelected" prefHeight="400"/>
+            <HBox spacing="5">
+                <Button text="Refresh" onAction="#refreshAccountList" style="-fx-padding: 8;" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="15" style="-fx-padding: 15;">
+            <!-- Account Info -->
+            <Label fx:id="activeAccountLabel" text="No account selected" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <Separator/>
+
+            <!-- Account Form -->
+            <VBox spacing="8" style="-fx-border-color: #444; -fx-border-radius: 5; -fx-padding: 10;">
+                <Label text="Account Details" style="-fx-font-size: 12; -fx-font-weight: bold;"/>
+
+                <HBox spacing="5">
+                    <Label text="Username:" prefWidth="100"/>
+                    <TextField fx:id="usernameField" promptText="Minecraft username" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <HBox spacing="5">
+                    <Label text="Email:" prefWidth="100"/>
+                    <TextField fx:id="emailField" promptText="Email address" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <HBox spacing="5">
+                    <Label text="UUID:" prefWidth="100"/>
+                    <TextField fx:id="uuidField" promptText="Player UUID" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <HBox spacing="5">
+                    <CheckBox fx:id="offlineCheckBox" text="Offline Mode"/>
+                </HBox>
+
+                <Separator/>
+
+                <HBox spacing="5">
+                    <Button text="Add Account" onAction="#addAccount" style="-fx-padding: 8;"/>
+                    <Button text="Remove" onAction="#removeAccount" style="-fx-padding: 8;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </center>
+</BorderPane>

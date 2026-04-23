@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.xkclient.ui.controller.MainController"
+            fx:id="mainPane"
+            stylesheets="@styles.css">
+
+    <!-- Top Menu Bar -->
+    <top>
+        <VBox spacing="0">
+            <MenuBar>
+                <Menu text="File">
+                    <MenuItem text="Settings" onAction="#openSettings"/>
+                    <SeparatorMenuItem/>
+                    <MenuItem text="Exit" onAction="#exitApplication"/>
+                </Menu>
+                <Menu text="Edit">
+                    <MenuItem text="Preferences"/>
+                </Menu>
+                <Menu text="Help">
+                    <MenuItem text="About"/>
+                    <MenuItem text="Documentation"/>
+                </Menu>
+            </MenuBar>
+            <HBox spacing="10" style="-fx-padding: 10; -fx-background-color: #2d2d2d;">
+                <Label text="XK Client v1.0.0" style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="statusLabel" text="Ready" style="-fx-text-fill: #00ff00; -fx-font-size: 12;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center - Tabbed Interface -->
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE" style="-fx-font-size: 12;">
+            <!-- Instances Tab -->
+            <Tab text="Instances" fx:id="instancesTab">
+                <fx:include source="instances-tab.fxml"/>
+            </Tab>
+
+            <!-- Accounts Tab -->
+            <Tab text="Accounts" fx:id="accountsTab">
+                <fx:include source="accounts-tab.fxml"/>
+            </Tab>
+
+            <!-- Servers Tab -->
+            <Tab text="Servers" fx:id="serversTab">
+                <fx:include source="servers-tab.fxml"/>
+            </Tab>
+
+            <!-- Dashboard Tab -->
+            <Tab text="Dashboard" fx:id="dashboardTab">
+                <VBox spacing="10" style="-fx-padding: 15;">
+                    <Label text="System Information" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                    <TextArea fx:id="systemInfoArea" wrapText="true" style="-fx-control-inner-background: #1e1e1e; -fx-text-fill: #00ff00;" prefHeight="200"/>
+                    <Separator/>
+                    <HBox spacing="20">
+                        <VBox spacing="5">
+                            <Label text="Memory Usage" style="-fx-font-weight: bold;"/>
+                            <ProgressBar fx:id="memoryProgressBar" prefWidth="200" progress="0.5"/>
+                            <Label fx:id="memoryLabel" text="0 MB / 0 MB"/>
+                        </VBox>
+                        <VBox spacing="5">
+                            <Label text="CPU Usage" style="-fx-font-weight: bold;"/>
+                            <ProgressBar fx:id="cpuProgressBar" prefWidth="200" progress="0.5"/>
+                            <Label fx:id="cpuLabel" text="0%"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+            </Tab>
+        </TabPane>
+    </center>
+
+    <!-- Bottom Status Bar -->
+    <bottom>
+        <HBox spacing="10" style="-fx-padding: 8; -fx-background-color: #2d2d2d; -fx-border-color: #444;">
+            <Label fx:id="bottomStatusLabel" text="Ready" style="-fx-text-fill: white;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Java: " style="-fx-text-fill: #999;"/>
+            <Label fx:id="javaVersionLabel" text="" style="-fx-text-fill: #00ff00;"/>
+        </HBox>
+    </bottom>
+</BorderPane>

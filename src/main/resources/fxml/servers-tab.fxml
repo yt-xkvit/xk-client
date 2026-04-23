@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.xkclient.ui.controller.ServersController"
+            stylesheets="@styles.css">
+
+    <left>
+        <VBox spacing="10" style="-fx-padding: 15; -fx-min-width: 250;">
+            <Label text="Saved Servers" style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+            <ListView fx:id="serverList" onMouseClicked="#onServerSelected" prefHeight="400"/>
+            <HBox spacing="5">
+                <Button text="Refresh" onAction="#refreshServerList" style="-fx-padding: 8;" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="15" style="-fx-padding: 15;">
+            <!-- Server Info -->
+            <Label fx:id="selectedServerLabel" text="No server selected" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+            <Separator/>
+
+            <!-- Server Form -->
+            <VBox spacing="8" style="-fx-border-color: #444; -fx-border-radius: 5; -fx-padding: 10;">
+                <Label text="Server Details" style="-fx-font-size: 12; -fx-font-weight: bold;"/>
+
+                <HBox spacing="5">
+                    <Label text="Name:" prefWidth="100"/>
+                    <TextField fx:id="serverNameField" promptText="Server name" HBox.hgrow="ALWAYS"/>
+                </HBox>
+
+                <HBox spacing="5" alignment="TOP_LEFT">
+                    <Label text="Address:" prefWidth="100"/>
+                    <VBox spacing="5" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="addressField" promptText="IP or domain" HBox.hgrow="ALWAYS"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <Label text="Port:" prefWidth="50"/>
+                        <Spinner fx:id="portSpinner" prefWidth="100"/>
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="5">
+                    <Label text="Description:" prefWidth="100"/>
+                    <TextArea fx:id="descriptionArea" wrapText="true" prefHeight="60" style="-fx-control-inner-background: #1e1e1e; -fx-text-fill: #00ff00;"/>
+                </VBox>
+
+                <CheckBox fx:id="favoriteCheckBox" text="Favorite Server"/>
+
+                <Separator/>
+
+                <HBox spacing="5">
+                    <Button text="Add Server" onAction="#addServer" style="-fx-padding: 8;"/>
+                    <Button text="Edit" onAction="#editServer" style="-fx-padding: 8;"/>
+                    <Button text="Remove" onAction="#removeServer" style="-fx-padding: 8;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                </HBox>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </center>
+</BorderPane>
