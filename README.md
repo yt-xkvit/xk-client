@@ -12,12 +12,14 @@ A powerful, open-source Minecraft launcher for managing versions, mods, and game
 ✅ **Custom JVM Arguments** - Fine-tune performance with custom JVM settings
 ✅ **Performance Monitoring** - Real-time monitoring of game performance
 ✅ **Cross-Platform** - Works on Windows, macOS, and Linux
+✅ **Game Launcher** - Direct launch from the launcher
+✅ **Download Manager** - Automated version and mod downloads
 
 ## Requirements
 
 - Java 11 or higher
 - Maven 3.6+
-- Minecraft Java Edition account
+- Minecraft Java Edition
 
 ## Installation
 
@@ -47,14 +49,32 @@ xk-client/
 │   │   │   └── com/xkclient/
 │   │   │       ├── XKClient.java
 │   │   │       ├── model/
+│   │   │       │   ├── GameInstance.java
+│   │   │       │   ├── Account.java
+│   │   │       │   ├── Mod.java
+│   │   │       │   └── Server.java
 │   │   │       ├── service/
+│   │   │       │   ├── ConfigService.java
+│   │   │       │   ├── InstanceService.java
+│   │   │       │   ├── AccountService.java
+│   │   │       │   └── ServerService.java
 │   │   │       ├── ui/
+│   │   │       │   └── controller/
+│   │   │       │       ├── MainController.java
+│   │   │       │       ├── InstancesController.java
+│   │   │       │       ├── AccountsController.java
+│   │   │       │       └── ServersController.java
 │   │   │       └── util/
+│   │   │           ├── GameLauncher.java
+│   │   │           ├── DownloadManager.java
+│   │   │           ├── VersionManager.java
+│   │   │           └── PerformanceMonitor.java
 │   │   └── resources/
-│   │       ├── styles/
-│   │       └── config/
+│   │       └── logback.xml
 │   └── test/
 ├── pom.xml
+├── LICENSE
+├── .gitignore
 └── README.md
 ```
 
@@ -66,43 +86,91 @@ XK Client stores configuration in `~/.xkclient/`:
 - `servers.json` - Favorite servers
 - `settings.json` - Launcher preferences
 
-## Usage
-
-1. **Add Minecraft Version**: Download from the versions tab
-2. **Create Instance**: Set up a new game instance with mods
-3. **Add Account**: Login with your Minecraft account
-4. **Launch Game**: Select instance and click Play
-
 ## Features Overview
 
 ### Game Instances
 - Create multiple isolated game environments
 - Customize JVM memory, CPU cores, and arguments
 - Save instance-specific mod configurations
+- View last played time and creation date
 
-### Mod Management
-- Add/remove mods to instances
-- Automatic dependency resolution
-- Support for both Forge and Fabric
-- Mod metadata and version tracking
-
-### Account Management
+### Accounts
 - Store multiple Minecraft accounts
-- Secure token storage
+- Support for both online and offline modes
+- UUID and email storage
 - Quick account switching
 
-### Server Management
+### Servers
 - Save favorite servers
 - Quick-connect with one click
-- Server address and port customization
+- Track join count and last played time
+- Server descriptions and port customization
 
-## Performance Monitoring
+### Utilities
+- **GameLauncher** - Launch Minecraft with custom settings
+- **DownloadManager** - Download game versions and mods
+- **VersionManager** - Manage installed Minecraft versions
+- **PerformanceMonitor** - Monitor system performance
 
-Monitor real-time performance metrics:
-- FPS counter
-- Memory usage
-- CPU usage
-- Chunk loading time
+## Usage
+
+### Creating an Instance
+1. Go to the "Instances" tab
+2. Enter an instance name
+3. Select Minecraft version
+4. Click "Create Instance"
+5. Customize JVM settings (optional)
+
+### Adding an Account
+1. Go to the "Accounts" tab
+2. Enter username, email, and UUID
+3. Select online or offline mode
+4. Click "Add Account"
+
+### Managing Servers
+1. Go to the "Servers" tab
+2. Enter server name, address, and port
+3. Mark as favorite (optional)
+4. Click "Add Server"
+
+### Launching the Game
+1. Select an instance
+2. Choose an account
+3. Select a server (optional)
+4. Click "Play"
+
+## API Reference
+
+### ConfigService
+```java
+ConfigService config = new ConfigService();
+List<GameInstance> instances = config.loadInstances();
+config.saveInstances(instances);
+```
+
+### InstanceService
+```java
+InstanceService instanceService = new InstanceService(config);
+GameInstance instance = instanceService.createInstance("MyInstance", "1.20.1");
+instanceService.addMod("MyInstance", "modId");
+```
+
+### GameLauncher
+```java
+Process game = GameLauncher.launchGame(
+    instancePath, version, javaPath,
+    maxMemory, minMemory, jvmArgs,
+    username, uuid
+);
+```
+
+### DownloadManager
+```java
+DownloadManager.downloadFile(url, destinationPath);
+DownloadManager.downloadFileWithProgress(url, path, (downloaded, total) -> {
+    System.out.println("Progress: " + (downloaded * 100 / total) + "%");
+});
+```
 
 ## Development
 
@@ -137,6 +205,16 @@ Contributions are welcome! Please:
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
+
+## Roadmap
+
+- [ ] Web UI for remote management
+- [ ] Mod marketplace integration
+- [ ] Auto-update system
+- [ ] Multiplayer game sync
+- [ ] Plugin system for extensions
+- [ ] Performance optimization
+- [ ] Dark mode theme
 
 ## License
 
