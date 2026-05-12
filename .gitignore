@@ -1,38 +1,30 @@
-# IDE
-.idea/
-.vscode/
-*.iml
-*.swp
-*.swo
-*~
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# misc
 .DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-release.properties
-dependency-reduced-pom.xml
-.m2/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Runtime
+# Electron
+/dist
+/out
+
+# XK Client
 .xkclient/
 *.log
-
-# Build
-out/
-build/
-dist/
-
-# Java
-*.class
-*.jar
-*.war
-*.ear
-*.zip
-
-# OS
-Thumbs.db
-.DS_Store

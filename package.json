@@ -1,0 +1,96 @@
+{
+  "name": "xk-client",
+  "version": "1.0.0",
+  "description": "A modern Electron-based Minecraft launcher",
+  "homepage": "./",
+  "author": "yt-xkvit",
+  "license": "MIT",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
+    "axios": "^1.6.0",
+    "child-process-promise": "^2.3.0"
+  },
+  "devDependencies": {
+    "react-scripts": "5.0.1",
+    "electron": "^27.0.0",
+    "electron-builder": "^24.9.1",
+    "electron-dev-client": "^4.0.1",
+    "concurrently": "^8.2.0",
+    "wait-on": "^7.0.1"
+  },
+  "scripts": {
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-start": "wait-on http://localhost:3000 && electron .",
+    "electron-dev": "concurrently \"npm run react-start\" \"npm run electron-start\"",
+    "electron-build": "npm run react-build && electron-builder",
+    "build": "npm run react-build",
+    "dist": "npm run react-build && electron-builder --win --publish=never",
+    "dist-all": "npm run react-build && electron-builder -mwl"
+  },
+  "build": {
+    "appId": "com.xkclient.launcher",
+    "productName": "XK Client",
+    "files": [
+      "build/**/*",
+      "public/electron.js",
+      "public/preload.js",
+      "node_modules/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "XK Client"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "build/icon.png"
+    }
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
