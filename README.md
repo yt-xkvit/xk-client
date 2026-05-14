@@ -1,291 +1,157 @@
 # XK Client - Minecraft Launcher
 
-A powerful, open-source Minecraft launcher for managing versions, mods, and game instances with a modern JavaFX interface.
+A modern, fast Electron-based Minecraft launcher built with React and Node.js. Similar to Lunar Client with a sleek dark UI and cyan/green accents.
 
 ## 🎮 Features
 
-✅ **Multi-Version Support** - Manage multiple Minecraft versions seamlessly
-✅ **Mod Management** - Support for Forge and Fabric mods with dependency resolution
-✅ **Multiple Game Instances** - Create and manage separate game profiles
-✅ **Account Management** - Store and manage multiple Minecraft accounts
-✅ **Server Quick-Connect** - Save and quickly connect to favorite servers
-✅ **Custom JVM Arguments** - Fine-tune performance with custom JVM settings
-✅ **Performance Monitoring** - Real-time monitoring of game performance
-✅ **Cross-Platform** - Works on Windows, macOS, and Linux
-✅ **Game Launcher** - Direct launch from the launcher
-✅ **Download Manager** - Automated version and mod downloads
-✅ **Modern Dark UI** - Professional JavaFX interface with green terminal theme
-✅ **Complete Test Coverage** - Unit tests for all services
+✅ **Modern Electron UI** - Built with React for smooth performance  
+✅ **Multi-Version Support** - Manage multiple Minecraft versions  
+✅ **Mod Manager** - Enable/disable mods per version  
+✅ **RAM Allocation** - Slider controls from 1-16 GB  
+✅ **Real-time Console** - Live game output streaming  
+✅ **System Monitoring** - Display RAM, CPU, and OS info  
+✅ **Lunar Client Design** - Beautiful cyan/green dark theme  
+✅ **Cross-Platform** - Works on Windows, macOS, and Linux  
+✅ **Windows Installer** - Auto-builds NSIS .exe  
+✅ **Fast Startup** - Instant launch compared to Java
 
 ## 📋 Requirements
 
-- Java 11 or higher
-- Maven 3.6+
-- Minecraft Java Edition
+- Node.js >= 14.0.0
+- npm or yarn
+- Java 11+ (for running Minecraft)
 
-## 🚀 Installation
+## 🚀 Installation & Setup
 
-### Clone the Repository
+### Clone Repository
 ```bash
 git clone https://github.com/yt-xkvit/xk-client.git
 cd xk-client
 ```
 
-### Build with Maven
+### Install Dependencies
 ```bash
-mvn clean install
+npm install
 ```
 
-### Run the Launcher
+### Development Mode
 ```bash
-mvn javafx:run
+npm run electron-dev
+```
+This starts React dev server + Electron with hot reload.
+
+### Build for Production
+```bash
+# Windows EXE
+npm run dist
+
+# macOS DMG
+npm run electron-build -- --mac
+
+# Linux AppImage
+npm run electron-build -- --linux
 ```
 
 ## 📁 Project Structure
 
 ```
 xk-client/
+├── public/
+│   ├── electron.js          # Electron main process
+│   ├── preload.js           # IPC security bridge
+│   └── index.html           # HTML entry
 ├── src/
-│   ├── main/
-│   │   ├── java/com/xkclient/
-│   │   │   ├── XKClient.java                    (Main Application)
-│   │   │   ├── model/                          (Data Models)
-│   │   │   │   ├── GameInstance.java
-│   │   │   │   ├── Account.java
-│   │   │   │   ├── Mod.java
-│   │   │   │   └── Server.java
-│   │   │   ├── service/                        (Business Logic)
-│   │   │   │   ├── ConfigService.java
-│   │   │   │   ├── InstanceService.java
-│   │   │   │   ├── AccountService.java
-│   │   │   │   └── ServerService.java
-│   │   │   ├── ui/controller/                  (UI Controllers)
-│   │   │   │   ├── MainController.java
-│   │   │   │   ├── InstancesController.java
-│   │   │   │   ├── AccountsController.java
-│   │   │   │   └── ServersController.java
-│   │   │   └── util/                           (Utilities)
-│   │   │       ├── GameLauncher.java
-│   │   │       ├── DownloadManager.java
-│   │   │       ├── VersionManager.java
-│   │   │       └── PerformanceMonitor.java
-│   │   └── resources/
-│   │       ├── fxml/                           (UI Layouts)
-│   │       │   ├── main.fxml
-│   │       │   ├── instances-tab.fxml
-│   │       │   ├── accounts-tab.fxml
-│   │       │   ├── servers-tab.fxml
-│   │       │   └── styles.css
-│   │       └── logback.xml                     (Logging Config)
-│   └── test/java/com/xkclient/test/           (Unit Tests)
-│       ├── InstanceServiceTest.java
-│       ├── AccountServiceTest.java
-│       ├── ServerServiceTest.java
-│       └── PerformanceMonitorTest.java
-├── pom.xml
-├── LICENSE
-├── .gitignore
+│   ├── components/
+│   │   ├── Launcher.js      # Main launcher UI
+│   │   ├── Launcher.css     # Launcher styles
+│   │   ├── Navbar.js        # Top navigation
+│   │   └── Navbar.css       # Navbar styles
+│   ├── App.js               # Root component
+│   ├── App.css              # Global styles
+│   └── index.js             # React entry
+├── package.json
 └── README.md
 ```
 
 ## ⚙️ Configuration
 
-XK Client stores configuration in `~/.xkclient/`:
-- `instances.json` - Game instance configurations
-- `accounts.json` - Saved Minecraft accounts
-- `servers.json` - Favorite servers
-- `settings.json` - Launcher preferences
-- `logs/` - Application logs
+XK Client stores config in `~/.xkclient/`:
+- `versions/` - Minecraft versions
+- `mods/` - Game mods (organized by version)
+- `game/` - Game directory
 
-## 🎯 Features Overview
+## 🎯 Features Breakdown
 
-### Game Instances Tab
-- Create multiple isolated game environments
-- Customize JVM memory (Min/Max), CPU cores, and custom arguments
-- Manage mods per instance
-- View creation date and last played time
+### Launcher Settings
+- **Version Selector** - Choose from installed Minecraft versions
+- **Username** - Set player username (max 16 characters)
+- **Min RAM** - Minimum heap memory (1-8 GB)
+- **Max RAM** - Maximum heap memory (2-16 GB)
+- **Launch Button** - Start Minecraft with current config
 
-### Accounts Tab
-- Store multiple Minecraft accounts
-- Support for both online and offline modes
-- UUID and email storage
-- Quick account switching
+### Mod Manager
+- **Mod List** - Shows all installed mods for selected version
+- **Checkboxes** - Enable/disable individual mods
+- **Mod Counter** - Display active mods vs total
 
-### Servers Tab
-- Save favorite servers
-- Quick-connect with one click
-- Track join count and last played time
-- Server descriptions and custom port support
+### Console Output
+- **Real-time Logs** - Stream game output as it runs
+- **Auto-scroll** - Automatically scrolls to latest message
+- **Clear Button** - Wipe console history
 
-### Dashboard Tab
-- Real-time system information
-- Live memory usage monitoring
-- CPU usage tracking
-- Available processor cores display
-
-## 📦 Core Components
-
-### Data Models
-- **GameInstance** - Represents a Minecraft game installation
-- **Account** - Stores Minecraft account information
-- **Mod** - Represents a mod with metadata
-- **Server** - Stores server connection details
-
-### Services
-- **ConfigService** - Manages JSON-based configuration files
-- **InstanceService** - CRUD operations for game instances
-- **AccountService** - Account management and validation
-- **ServerService** - Server management with favorites
-
-### UI Controllers
-- **MainController** - Central application controller with performance monitoring
-- **InstancesController** - Instance creation and management
-- **AccountsController** - Account management interface
-- **ServersController** - Server list and management
-
-### Utilities
-- **GameLauncher** - Launches Minecraft with custom JVM settings
-- **DownloadManager** - Downloads versions and mods with progress tracking
-- **VersionManager** - Manages installed Minecraft versions
-- **PerformanceMonitor** - Monitors system and JVM performance
+### System Info Bar
+- **RAM Display** - Free/Total memory in GB
+- **CPU Cores** - Number of processor cores
+- **Platform** - Operating system (Windows/macOS/Linux)
 
 ## 🎨 UI Theme
 
-XK Client features a professional dark theme inspired by terminal emulators:
-- Black/Dark Gray background (#1e1e1e, #2d2d2d)
-- Bright green accent color (#00aa00, #00ff00)
-- Clean and modern interface
-- Responsive design
-- Cross-platform compatibility
-
-## 🧪 Testing
-
-Run all tests:
-```bash
-mvn test
-```
-
-Run specific test:
-```bash
-mvn test -Dtest=InstanceServiceTest
-```
-
-## 📝 Usage Examples
-
-### Creating an Instance
-```java
-ConfigService config = new ConfigService();
-InstanceService instances = new InstanceService(config);
-GameInstance instance = instances.createInstance("MyInstance", "1.20.1");
-instance.setMaxMemory(8);
-instance.setMinMemory(4);
-instances.updateInstance(instance);
-```
-
-### Adding an Account
-```java
-AccountService accounts = new AccountService(config);
-Account account = new Account("Username", "email@example.com", "uuid-here");
-account.setOffline(false);
-accounts.addAccount(account);
-```
-
-### Launching the Game
-```java
-Process game = GameLauncher.launchGame(
-    instance.getInstancePath(),
-    instance.getVersion(),
-    null, // Use default Java
-    instance.getMaxMemory(),
-    instance.getMinMemory(),
-    instance.getJvmArguments(),
-    account.getUsername(),
-    account.getUuid()
-);
-```
-
-### Downloading Files
-```java
-DownloadManager.downloadFileWithProgress(
-    "https://example.com/file.jar",
-    "/path/to/destination.jar",
-    (downloaded, total) -> {
-        System.out.println("Progress: " + (downloaded * 100 / total) + "%");
-    }
-);
-```
+Modern dark theme inspired by Lunar Client:
+- **Primary Background** - #1a1a1a (very dark gray)
+- **Accent Color** - #00ff88 (bright cyan)
+- **Secondary Accent** - #00ccff (light cyan)
+- **Text Primary** - #ffffff (white)
 
 ## 🔧 Development
 
 ### Technologies Used
-- **JavaFX 21** - Modern UI framework
-- **Maven** - Build automation
-- **Gson** - JSON processing
-- **Apache HTTP Client** - Network operations
-- **SLF4J + Logback** - Logging
-- **JUnit 4** - Unit testing
+- **Electron** - Desktop framework
+- **React 18** - UI library
+- **Node.js** - Backend runtime
+- **Electron Builder** - Packaging & distribution
 
-### Building from Source
-```bash
-mvn clean compile
-mvn javafx:run
-```
+### Available Scripts
 
-### Building Executable JAR
-```bash
-mvn clean package
-java -jar target/xk-client-1.0.0.jar
-```
+| Script | Description |
+|--------|-------------|
+| `npm run electron-dev` | Start development mode |
+| `npm run dist` | Build Windows installer |
+| `npm run dist-all` | Build all platforms |
 
-## 🗺️ Roadmap
+## 📦 Building Installers
 
-- [ ] Web API for remote management
-- [ ] Mod marketplace integration (Modrinth, CurseForge)
-- [ ] Auto-update system
-- [ ] Multiplayer game sync
-- [ ] Plugin system for extensions
-- [ ] Performance optimization
-- [ ] Light mode theme
-- [ ] Patch launcher (auto-download latest)
-- [ ] Save backup/restore
-- [ ] Statistics tracking
+### Windows NSIS Installer
+Builds an installer with start menu and desktop shortcuts.
+
+Located in: `dist/XK Client Setup 1.0.0.exe`
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Contributions welcome! Please:
+1. Fork repository
+2. Create feature branch (`git checkout -b feature/NewFeature`)
+3. Commit changes (`git commit -m 'Add NewFeature'`)
+4. Push to branch (`git push origin feature/NewFeature`)
+5. Open Pull Request
 
 ## 📄 License
 
-MIT License - See LICENSE file for details
+MIT License - See LICENSE file
 
 ## 💬 Support
 
-For issues, questions, or suggestions, please open a GitHub issue.
-
-## ⚠️ Disclaimer
-
-This launcher is not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Microsoft Corporation. This project is for educational purposes only.
-
-## 📈 Statistics
-
-- **Total Lines of Code**: 2000+
-- **Classes**: 27
-- **Test Coverage**: 4 test suites
-- **Dependencies**: 8
-- **Supported Java Versions**: 11+
-
-## 🎓 Learning Resources
-
-- [JavaFX Documentation](https://openjfx.io/)
-- [Maven Guide](https://maven.apache.org/)
-- [Minecraft Launcher Profiles](https://wiki.vg/Launcher)
-- [GSON Documentation](https://github.com/google/gson/blob/master/README.md)
+Issues, questions, or suggestions? Open a GitHub issue!
 
 ---
 
-**XK Client v1.0.0** - Your powerful Minecraft launcher! 🚀
+**XK Client v1.0.0** - Your modern Minecraft launcher! 🚀
