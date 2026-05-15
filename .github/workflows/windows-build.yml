@@ -1,0 +1,33 @@
+name: Build Windows NSIS and Publish
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  release:
+    types: [published]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React app
+        run: npm run react-build
+
+      - name: Build and publish Windows NSIS
+        run: npx electron-builder --win --x64 --publish always
+        # GH_TOKEN is provided via env for electron-builder to publish to GitHub Releases
