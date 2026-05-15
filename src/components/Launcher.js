@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { FaHome, FaGamepad, FaUsers, FaCog, FaPlay, FaTrash, FaClock } from 'react-icons/fa';
+import { FaHome, FaGamepad, FaUsers, FaCog, FaPlay, FaTrash, FaClock, FaCloudDownloadAlt } from 'react-icons/fa';
 import './Launcher.css';
 
-function Launcher() {
+function Launcher({ activeNav, onNavigate, updateStatus }) {
   const [versions, setVersions] = useState([]);
   const [mods, setMods] = useState([]);
   const [selectedVersion, setSelectedVersion] = useState('1.20.1');
   const [username, setUsername] = useState('Player');
   const [ramMin, setRamMin] = useState(2);
-  const [ramMax, setRamMax] = useState(4);
+  const [ramMax, setRamMax] = useState(8);
   const [enabledMods, setEnabledMods] = useState({});
   const [output, setOutput] = useState([]);
   const [isLaunching, setIsLaunching] = useState(false);
-  const [activeNav, setActiveNav] = useState('home');
   const [showConsole, setShowConsole] = useState(false);
 
   useEffect(() => {
@@ -79,6 +78,7 @@ function Launcher() {
   const navItems = [
     { id: 'home', label: 'Home', icon: FaHome },
     { id: 'instances', label: 'Instances', icon: FaGamepad },
+    { id: 'downloads', label: 'Downloads', icon: FaCloudDownloadAlt },
     { id: 'friends', label: 'Friends', icon: FaUsers },
     { id: 'settings', label: 'Settings', icon: FaCog },
   ];
@@ -86,7 +86,6 @@ function Launcher() {
   return (
     <div className="launcher">
       <div className="launcher-wrapper">
-        {/* Left Sidebar */}
         <div className="launcher-sidebar">
           <div className="sidebar-header">
             <div className="launcher-logo">XK</div>
@@ -99,7 +98,7 @@ function Launcher() {
                 <button
                   key={item.id}
                   className={`nav-item ${activeNav === item.id ? 'active' : ''}`}
-                  onClick={() => setActiveNav(item.id)}
+                  onClick={() => onNavigate(item.id)}
                   title={item.label}
                 >
                   <IconComponent size={20} />
@@ -124,9 +123,17 @@ function Launcher() {
           {/* Home View */}
           {activeNav === 'home' && (
             <div className="content-section home-section">
-              <div className="content-header">
-                <h1>Welcome Back</h1>
-                <p className="content-subtitle">Ready to play? Launch your game below.</p>
+              <div className="content-header space-between">
+                <div>
+                  <h1>Welcome Back</h1>
+                  <p className="content-subtitle">Ready to play? Launch your game below.</p>
+                </div>
+                <button
+                  className="secondary-btn"
+                  onClick={() => setShowConsole((prev) => !prev)}
+                >
+                  {showConsole ? 'Hide Console' : 'Show Console'}
+                </button>
               </div>
 
               {/* Featured Instance Card */}
@@ -265,6 +272,26 @@ function Launcher() {
                     <FaPlay /> Play
                   </button>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* Downloads View */}
+          {activeNav === 'downloads' && (
+            <div className="content-section downloads-section">
+              <div className="content-header">
+                <h1>Downloads</h1>
+                <p className="content-subtitle">Auto-update and asset downloads.</p>
+              </div>
+              <div className="download-card">
+                <div>
+                  <span className="download-pill">Auto updates</span>
+                  <p>Whenever a new launcher update is available, it will download in the background and notify you automatically.</p>
+                </div>
+                <div className="download-status">{updateStatus}</div>
+              </div>
+              <div className="empty-state small">
+                <p>No downloads are active right now. Updates will appear here when available.</p>
               </div>
             </div>
           )}

@@ -7,16 +7,20 @@ function App() {
   const [systemInfo, setSystemInfo] = useState(null);
   const [updateStatus, setUpdateStatus] = useState('Checking for updates...');
   const [updateDownloaded, setUpdateDownloaded] = useState(false);
+  const [activeNav, setActiveNav] = useState('home');
 
   useEffect(() => {
     if (window.api) {
-      window.api.getSystemInfo().then(info => {
+      window.api.getSystemInfo().then((info) => {
         setSystemInfo(info);
       });
 
       window.api.onUpdateStatus((status) => {
         setUpdateStatus(status);
-        setUpdateDownloaded(status.toLowerCase().includes('install') || status.toLowerCase().includes('downloaded'));
+        setUpdateDownloaded(
+          status.toLowerCase().includes('downloaded') ||
+          status.toLowerCase().includes('install')
+        );
       });
 
       window.api.checkForUpdates();
@@ -35,9 +39,11 @@ function App() {
         systemInfo={systemInfo}
         updateStatus={updateStatus}
         updateDownloaded={updateDownloaded}
+        activeNav={activeNav}
+        onNavigate={setActiveNav}
         onRestart={handleRestart}
       />
-      <Launcher />
+      <Launcher activeNav={activeNav} onNavigate={setActiveNav} updateStatus={updateStatus} />
     </div>
   );
 }
