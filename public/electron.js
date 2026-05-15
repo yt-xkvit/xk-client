@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 const path = require('path');
-const isDev = require('electron-is-dev');
+const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
 const { execFile } = require('child-process-promise');
 const fs = require('fs').promises;
 const os = require('os');
