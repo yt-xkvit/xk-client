@@ -31,12 +31,13 @@
     "electron-build": "npm run react-build && electron-builder",
     "build": "npm run react-build",
     "dist": "npm run react-build && electron-builder --win --publish=never",
+    "make-installer": "makensis installer.nsi",
     "dist-all": "npm run react-build && electron-builder -mwl"
   },
   "build": {
     "appId": "com.xkclient.launcher",
     "productName": "xk-client-launcher",
-    "artifactName": "xk-client-launcher.${ext}",
+    "artifactName": "xk-client-launcher-Setup-${version}.${ext}",
     "publish": [
       {
         "provider": "github",
@@ -57,15 +58,10 @@
           "arch": [
             "x64"
           ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64"
-          ]
         }
       ],
-      "icon": "public/icon.ico"
+      "icon": "public/icon.ico",
+      "signAndEditExecutable": false
     },
     "nsis": {
       "oneClick": false,
