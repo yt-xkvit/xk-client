@@ -63,6 +63,10 @@ ipcMain.handle('get-versions', async () => {
   }
 });
 
+ipcMain.handle('get-home-dir', async () => {
+  return os.homedir();
+});
+
 ipcMain.handle('get-mods', async (event, version) => {
   const modsPath = path.join(os.homedir(), '.xkclient', 'mods', version);
   try {

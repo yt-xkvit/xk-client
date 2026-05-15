@@ -49,13 +49,14 @@ function Launcher() {
     setIsLaunching(true);
     setOutput([]);
 
+    const homeDir = await window.api.getHomeDir();
     const config = {
       version: selectedVersion,
       username: username,
       ramMin: ramMin,
       ramMax: ramMax,
       mods: Object.keys(enabledMods).filter(m => enabledMods[m]),
-      gameDir: `${require('os').homedir()}/.xkclient/game`
+      gameDir: `${homeDir}/.xkclient/game`
     };
 
     try {

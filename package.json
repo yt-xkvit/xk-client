@@ -12,13 +12,12 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
     "axios": "^1.6.0",
-    "child-process-promise": "^2.3.0"
+    "child-process-promise": "^2.2.1"
   },
   "devDependencies": {
     "react-scripts": "5.0.1",
     "electron": "^27.0.0",
     "electron-builder": "^24.9.1",
-    "electron-dev-client": "^4.0.1",
     "concurrently": "^8.2.0",
     "wait-on": "^7.0.1"
   },
@@ -54,7 +53,7 @@
           "arch": ["x64"]
         }
       ],
-      "icon": "build/icon.ico"
+      "icon": "public/icon.ico"
     },
     "nsis": {
       "oneClick": false,

@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld('api', {
   getMods: (version) => ipcRenderer.invoke('get-mods', version),
   launchMinecraft: (config) => ipcRenderer.invoke('launch-minecraft', config),
   getSystemInfo: () => ipcRenderer.invoke('get-system-info'),
+  getHomeDir: () => ipcRenderer.invoke('get-home-dir'),
   onMinecraftOutput: (callback) => {
     ipcRenderer.on('minecraft-output', (event, data) => callback(data));
   }
