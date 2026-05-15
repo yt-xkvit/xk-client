@@ -7,7 +7,12 @@ contextBridge.exposeInMainWorld('api', {
   launchMinecraft: (config) => ipcRenderer.invoke('launch-minecraft', config),
   getSystemInfo: () => ipcRenderer.invoke('get-system-info'),
   getHomeDir: () => ipcRenderer.invoke('get-home-dir'),
+  checkForUpdates: () => ipcRenderer.invoke('check-for-updates'),
+  restartAndInstall: () => ipcRenderer.invoke('restart-and-install'),
   onMinecraftOutput: (callback) => {
     ipcRenderer.on('minecraft-output', (event, data) => callback(data));
+  },
+  onUpdateStatus: (callback) => {
+    ipcRenderer.on('update-status', (event, data) => callback(data));
   }
 });

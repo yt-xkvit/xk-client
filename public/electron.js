@@ -1,9 +1,10 @@
-const { app, BrowserWindow, ipcMain, Menu } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
 const path = require('path');
 const isDev = process.env.NODE_ENV === 'development' || !app.isPackaged;
 const { execFile } = require('child-process-promise');
 const fs = require('fs').promises;
 const os = require('os');
+const { autoUpdater } = require('electron-updater');
 
 let mainWindow;
 
@@ -38,7 +39,27 @@ function createWindow() {
   });
 }
 
-app.on('ready', createWindow);
+function sendStatusToWindow(text) {
+  if (mainWindow && mainWindow.webContents) {
+    mainWindow.webContents.send('update-status', text);
+  }
+}
+
+autoUpdater.autoDownload = true;
+autoUpdater.autoInstallOnAppQuit = true;
+autoUpdater.on('checking-for-update', () => sendStatusToWindow('Checking for updates...'));
+autoUpdater.on('update-available', () => sendStatusToWindow('Update available. Downloading...'));
+autoUpdater.on('update-not-available', () => sendStatusToWindow('You are running the latest version.'));
+autoUpdater.on('error', (err) => sendStatusToWindow(`Update error: ${err == null ? 'unknown' : err.message}`));
+autoUpdater.on('download-progress', (progress) => sendStatusToWindow(`Downloading update: ${Math.round(progress.percent)}%`));
+autoUpdater.on('update-downloaded', () => sendStatusToWindow('Update downloaded. It will install on quit.'));
+
+app.whenReady().then(() => {
+  createWindow();
+  if (!isDev) {
+    autoUpdater.checkForUpdatesAndNotify();
+  }
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -132,6 +153,22 @@ ipcMain.handle('get-system-info', async () => {
     totalMemory: Math.round(os.totalmem() / 1024 / 1024 / 1024),
     freeMemory: Math.round(os.freemem() / 1024 / 1024 / 1024)
   };
+});
+
+ipcMain.handle('check-for-updates', async () => {
+  if (!isDev) {
+    autoUpdater.checkForUpdatesAndNotify();
+    return true;
+  }
+  return false;
+});
+
+ipcMain.handle('restart-and-install', async () => {
+  if (!isDev) {
+    autoUpdater.quitAndInstall();
+    return true;
+  }
+  return false;
 });
 
 // Menu

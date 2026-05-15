@@ -13,7 +13,6 @@ function Launcher() {
   const [output, setOutput] = useState([]);
   const [isLaunching, setIsLaunching] = useState(false);
   const [activeNav, setActiveNav] = useState('home');
-  const [showSettings, setShowSettings] = useState(false);
   const [showConsole, setShowConsole] = useState(false);
 
   useEffect(() => {

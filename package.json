@@ -1,24 +1,24 @@
 {
   "name": "xk-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A modern Electron-based Minecraft launcher",
   "homepage": "./",
   "author": "yt-xkvit",
   "license": "MIT",
   "main": "public/electron.js",
-  "homepage": "./",
   "dependencies": {
+    "axios": "^1.6.0",
+    "child-process-promise": "^2.2.1",
+    "electron-updater": "^6.8.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.12.0",
-    "axios": "^1.6.0",
-    "child-process-promise": "^2.2.1"
+    "react-icons": "^4.12.0"
   },
   "devDependencies": {
-    "react-scripts": "5.0.1",
+    "concurrently": "^8.2.0",
     "electron": "^27.0.0",
     "electron-builder": "^24.9.1",
-    "concurrently": "^8.2.0",
+    "react-scripts": "5.0.1",
     "wait-on": "^7.0.1"
   },
   "scripts": {
@@ -36,6 +36,14 @@
   "build": {
     "appId": "com.xkclient.launcher",
     "productName": "xk-client-launcher",
+    "artifactName": "xk-client-launcher.${ext}",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "yt-xkvit",
+        "repo": "xk-client"
+      }
+    ],
     "files": [
       "build/**/*",
       "public/electron.js",
@@ -46,11 +54,15 @@
       "target": [
         {
           "target": "nsis",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         },
         {
           "target": "portable",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "icon": "public/icon.ico"
@@ -60,7 +72,7 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "XK Client"
+      "shortcutName": "xk-client-launcher"
     },
     "mac": {
       "target": [

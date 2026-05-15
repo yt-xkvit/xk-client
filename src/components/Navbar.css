@@ -57,6 +57,37 @@
   gap: 10px;
   flex: 1;
   justify-content: flex-end;
+  align-items: center;
+}
+
+.update-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #c0c8e0;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.update-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(65, 105, 225, 0.15);
+  color: #a5c8ff;
+  border: 1px solid rgba(65, 105, 225, 0.4);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.update-btn:hover {
+  background: rgba(65, 105, 225, 0.25);
+  box-shadow: 0 0 14px rgba(65, 105, 225, 0.25);
 }
 
 .nav-btn {
