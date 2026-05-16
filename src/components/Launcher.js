@@ -88,7 +88,15 @@ function Launcher({ activeNav, onNavigate, updateStatus }) {
       <div className="launcher-wrapper">
         <div className="launcher-sidebar">
           <div className="sidebar-header">
-            <div className="launcher-logo">XK</div>
+            <div className="launcher-logo">
+              <img
+                src={`${process.env.PUBLIC_URL}/xk-logo.png`}
+                alt="XK"
+                className="launcher-logo-image"
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+              <span className="launcher-logo-fallback">XK</span>
+            </div>
           </div>
 
           <nav className="sidebar-nav">
